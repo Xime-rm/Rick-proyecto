@@ -1,34 +1,34 @@
-import { useState } from 'react'
-import './App.css'
-import { Card } from './components/Card/Card'
-const URL = 'https://rickandmortyapi.com/api/character' 
-import bart from './assets/Bart.png'
+import { useState } from 'react';
+import './App.css';
+import { Card } from './components/Card';
+ 
+const URL = 'https://rickandmortyapi.com/api/character?20';
+
 
 function App() {
-
-  const [nameCharacter, setNameCharacter] = useState('Bart') 
-  const [imgCharacter, setImgCharacter] = useState(bart) 
-  const [quoteCharacter, setQuoteCharacter] = useState('¡Ay caramba!') 
+  const [characters, setCharacters] = useState([]);
 
   const handleGetApi = async () => {
-    const response = await fetch(URL)
-    const data = await response.json()
-
-    setNameCharacter(data[0].character)
-    setQuoteCharacter(data[0].quote)
-    setImgCharacter(data[0].image)
-  }
+    const response = await fetch(URL);
+    const data = await response.json();
+    setCharacters(data.results);
+  };
 
   return (
     <>
-      <Card 
-        nameCharacter={nameCharacter}
-        imgCharacter={imgCharacter}
-        quoteCharacter={quoteCharacter}
-      />
-      <button onClick={handleGetApi}>Generar Personaje</button>
+      <div className="card-container">
+        {characters.map((character, index) => (
+          <Card 
+            key={index}
+            nameCharacter={character.name}
+            imgCharacter={character.img}
+            genderCharacter={character.gender}
+          />
+        ))}
+      </div>
+      <button className='buttonCard' onClick={handleGetApi}>Generar Personaje</button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
