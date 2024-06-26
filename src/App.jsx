@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import { Card } from './components/Card';
  
-const URL = 'https://rickandmortyapi.com/api/character?20';
+const URL = 'https://rickandmortyapi.com/api/character?count=20';
 
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
           <Card 
             key={index}
             nameCharacter={character.name}
-            imgCharacter={character.img}
+            imgCharacter={character.image}
             genderCharacter={character.gender}
           />
         ))}
